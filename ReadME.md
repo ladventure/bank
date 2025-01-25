@@ -157,10 +157,7 @@ curl --location --request POST 'http://localhost:8080/transactions/createTransac
 ```
 
 2. 修改接口
-   ```
-   curl --location --request POST 'http://localhost:8080/transactions/listTransactions' \
-   ```
-
+```
 --header 'Content-Type: application/json' 
 --data-raw '{
 "pageSize":90,
