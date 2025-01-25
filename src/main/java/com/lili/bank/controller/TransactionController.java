@@ -34,23 +34,28 @@ public class TransactionController {
      * @return
      */
     @Operation(summary = "删除一天资金操作记录", description = "返回操作是否成功")
-    @DeleteMapping("deleteTransaction/{id}")
+    @GetMapping("deleteTransaction/{id}")
     public ResponseEntity<Void> deleteTransaction(@PathVariable String id) {
         transactionAppService.deleteTransaction(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Operation(summary = "修改一条资金操作记录", description = "返回操作是否成功")
-    @PutMapping("modifyTransaction")
+    @PostMapping("modifyTransaction")
     public ResponseEntity<Void> modifyTransaction(@RequestBody @NotNull @Valid ModifyTransactionDTO transactionDto) {
         transactionAppService.modifyTransaction(transactionDto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Operation(summary = "删除一条资金操作记录", description = "返回操作是否成功")
-    @GetMapping("listAllTransactions")
+    @PostMapping("listTransactions")
     public ResponseEntity<Page<TransactionDTO>> listTransactions(@RequestBody @Valid TransactionQuery transactionQuery) {
         Page<TransactionDTO> transactionDtos = transactionAppService.listTransactions(transactionQuery);
         return new ResponseEntity<>(transactionDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("/transactions")
+    public String showTransactionsPage() {
+        return "transactions"; // 这里的名称对应 transactions.html，Thymeleaf 会自动查找对应的模板文件
     }
 }

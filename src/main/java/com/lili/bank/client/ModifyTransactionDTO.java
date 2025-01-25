@@ -16,6 +16,8 @@ public class ModifyTransactionDTO {
     private String id;
     @NotEmpty(message = "accountId cannot be empty")
     private String accountId;
+
+//    modify amount by id and accountId
     @DecimalMin("0.01")
     private BigDecimal amount;
 

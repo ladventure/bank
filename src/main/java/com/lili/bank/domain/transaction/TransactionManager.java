@@ -92,7 +92,7 @@ public class TransactionManager {
             if (!lockRes){
                 throw new BankException(BankExceptionEnum.CONCURRENT_ERROR);
             }
-            optional.get().setAccountId(transaction.getAccountId());
+            optional.get().setAmount(transaction.getAmount());
             transactionDao.update(optional.get());
 
             //        clear cache
@@ -117,7 +117,7 @@ public class TransactionManager {
             return new Page<>(optional.isEmpty() ? 0:1, optional.map(transactionDO -> List.of(ObjectUtils.convertObject(transactionDO, TransactionEntity.class))).orElseGet(List::of));
         }
 //      for test just this case use cache
-        if (query.getAccountId() != null && !bankProperties.getAccountIdToIdsCache().get(query.getAccountId()).isEmpty()) {
+        if (query.getAccountId() != null && bankProperties.getAccountIdToIdsCache().get(query.getAccountId())!=null) {
             List<TransactionDO> dos=new ArrayList<>();
             bankProperties.getAccountIdToIdsCache().get(query.getAccountId()).forEach(id ->transactionDao.findById(id).ifPresent(dos::add));
             dos.sort(Comparator.comparing(TransactionDO::getId));

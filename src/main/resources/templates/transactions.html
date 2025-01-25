@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transaction Management</title>
+</head>
+<body>
+<h1>Transaction List</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Account ID</th>
+        <th>Amount</th>
+        <th>Timestamp</th>
+        <th>Type</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="transaction : ${transactions}">
+        <td th:text="${transaction.id}"></td>
+        <td th:text="${transaction.accountId}"></td>
+        <td th:text="${transaction.amount}"></td>
+        <td th:text="${transaction.timestamp}"></td>
+        <td th:text="${transaction.type}"></td>
+        <td>
+            <a th:href="@{/transactions/deleteTransaction/{id}(id=${transaction.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>
